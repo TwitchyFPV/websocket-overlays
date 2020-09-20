@@ -6,10 +6,11 @@ function startTime() {
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
+    var currTime = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     m = checkTime(m);
 //    var s = today.getSeconds();
 //    s = checkTime(s);
-    document.getElementById('txt').innerHTML = h + ":" + m/* + ":" + s*/;
+    document.getElementById('txt').innerHTML = currTime;
     var t = setTimeout(startTime, 500);
 }
 function checkTime(i) {
