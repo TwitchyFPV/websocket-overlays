@@ -25,12 +25,20 @@ input[type="number"] {
 					<h5 class="card-title">Scoreboard control</h5>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="team1">Team 1:</label>
-							<input class="form-control" type="text" placeholder="Team 1 Name" id="team1" value="Team 1" onchange="updateTeamNames()">
+							<label for="team1">Pilot 1:</label>
+							<input class="form-control" type="text" placeholder="Pilot 1 Callsign" id="pilot1" value="Pilot 1" onchange="updatePilotNames()">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="team2">Team 2:</label>
-							<input class="form-control" type="text" placeholder="Team 2 Name" id="team2" value="Team 2" onchange="updateTeamNames()">
+							<label for="team2">Pilot 2:</label>
+							<input class="form-control" type="text" placeholder="Pilot 2 Callsign" id="pilot2" value="Pilot 2" onchange="updatePilotNames()">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="team1">Pilot 3:</label>
+							<input class="form-control" type="text" placeholder="Pilot 3 Callsign" id="pilot3" value="Pilot 3" onchange="updatePilotNames()">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="team2">Pilot 4:</label>
+							<input class="form-control" type="text" placeholder="Pilot 4 Callsign" id="pilot4" value="Pilot 4" onchange="updatePilotNames()">
 						</div>
 					</div>
 					<div class="form-group">
@@ -39,6 +47,10 @@ input[type="number"] {
 							<input class="form-control" type="number" id="score1" value="0" onchange="updateScores()">
 							<span class="form-control input-group-text col-1">-</span>
 							<input class="form-control" type="number" id="score2" value="0" onchange="updateScores()">
+							<span class="form-control input-group-text col-1">-</span>
+							<input class="form-control" type="number" id="score3" value="0" onchange="updateScores()">
+							<span class="form-control input-group-text col-1">-</span>
+							<input class="form-control" type="number" id="score4" value="0" onchange="updateScores()">
 						</div>
 						<small class="form-text text-muted">Team names and Scores are updated automatically on change and show.</small>
 					</div>
@@ -92,10 +104,14 @@ document.getElementById("WEBSOCKET_URI").value = WEBSOCKET_URI;
 
 function show() {
 	sendCommand({
-		"team1": document.getElementById("team1").value,
-		"team2": document.getElementById("team2").value,
+		"pilot1": document.getElementById("pilot1").value,
+		"pilot2": document.getElementById("pilot2").value,
+		"pilot3": document.getElementById("pilot3").value,
+		"pilot4": document.getElementById("pilot4").value,
 		"score1": document.getElementById("score1").value,
 		"score2": document.getElementById("score2").value,
+		"score3": document.getElementById("score3").value,
+		"score4": document.getElementById("score4").value,
 		"show": true
 	});
 }
@@ -104,31 +120,50 @@ function hide() {
 }
 function updateTeamNames() {
 	sendCommand({
-		"team1": document.getElementById("team1").value,
-		"team2": document.getElementById("team2").value,
+		"pilot1": document.getElementById("pilot1").value,
+		"pilot2": document.getElementById("pilot2").value,
+		"pilot3": document.getElementById("pilot3").value,
+		"pilot4": document.getElementById("pilot4").value,
 	});
 }
 function updateScores() {
 	sendCommand({
 		"score1": document.getElementById("score1").value,
 		"score2": document.getElementById("score2").value,
+		"score3": document.getElementById("score3").value,
+		"score4": document.getElementById("score4").value,
 	});
 }
 function onMessage(data) {
 	console.log(data);
-    if (data.hasOwnProperty('team1')) {
-        document.getElementById("team1").value = data['team1'];
+    if (data.hasOwnProperty('pilot1')) {
+        document.getElementById("pilot1").value = data['pilot1'];
     }
-    if (data.hasOwnProperty('team2')) {
-        document.getElementById("team2").value = data['team2'];
+    if (data.hasOwnProperty('pilot2')) {
+        document.getElementById("pilot2").value = data['pilot2'];
     }
-    if (data.hasOwnProperty('score1')) {
+    if (data.hasOwnProperty('pilot3')) {
+        document.getElementById("pilot3").value = data['pilo3'];
+    }
+    if (data.hasOwnProperty('pilot4')) {
+        document.getElementById("pilot4").value = data['pilot4'];
+	}
+	
+	if (data.hasOwnProperty('score1')) {
 		score1 = data['score1'];
         document.getElementById("score1").innerHTML = data['score1'];
     }
     if (data.hasOwnProperty('score2')) {
 		score1 = data['score1'];
         document.getElementById("score2").innerHTML = data['score2'];
+    }
+	if (data.hasOwnProperty('score3')) {
+		score1 = data['score3'];
+        document.getElementById("score3").innerHTML = data['score3'];
+    }
+    if (data.hasOwnProperty('score4')) {
+		score1 = data['score4'];
+        document.getElementById("score4").innerHTML = data['score4'];
     }
 }
 </script>

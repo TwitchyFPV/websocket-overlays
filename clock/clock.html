@@ -6,15 +6,28 @@ function startTime() {
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
-    var currTime = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var s = today.getSeconds();
+    var ms = today.getMilliseconds();
+    var currTime = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
     m = checkTime(m);
-//    var s = today.getSeconds();
-//    s = checkTime(s);
+    s = checkTime(s);
+    ms = checkMsTime(ms);
+
+    //document.getElementById('txt').innerHTML = h + ":" + m + ":" + s + "." + ms;
     document.getElementById('txt').innerHTML = currTime;
-    var t = setTimeout(startTime, 500);
+
+    var t = setTimeout(startTime, 300);
+    //var t = setTimeout(startTime, 1);
 }
 function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+
+    if (i < 10 ) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+function checkMsTime(i) {
+    if (i < 10 ) {i = "00" + i}; // add two zeros in front of numbers < 10
+    if (i < 100 && i > 9 ) {i = "0" + i};
     return i;
 }
 </script>
